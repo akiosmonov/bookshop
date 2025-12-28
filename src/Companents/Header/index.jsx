@@ -1,0 +1,52 @@
+import React from "react";
+import logo from "../../assets/images/BOOKShop.svg";
+import { IoIosSearch } from "react-icons/io";
+import { FaCartShopping } from "react-icons/fa6";
+import { LuCircleUser } from "react-icons/lu";
+import { Link } from "react-router-dom";
+
+const Header = () => {
+  return (
+    <div className=" bg-[#010049] p-5">
+      <div className="container">
+        <div className="flex justify-between items-center ">
+          <Link to={"/"}>
+            <img src={logo} alt="logo" />
+          </Link>
+          <div className=" flex gap-10 items-center justify-center">
+            <input
+              type="text"
+              placeholder="Search here"
+              className="text-black text-xl p-2 bg-[#ececec] rounded-[5px] w-70   "
+            />
+            <a
+              href=""
+              className=" text-[#A4A4A4] text-2xl relative right-20  "
+            >
+              <IoIosSearch />
+            </a>
+            <Link to={"/"}>
+              <div className=" flex flex-col items-center ">
+                <span className="text-white text-2xl">
+                  <FaCartShopping />
+                </span>
+                <h1 className="text-white ">Корзина</h1>
+              </div>
+            </Link>
+
+            <Link to={"/admin"}>
+              <div className=" flex flex-col ">
+                <span className="text-white  text-2xl relative left-3">
+                  <LuCircleUser />
+                </span>
+                <h1 className="text-white ">Админ</h1>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Header;
