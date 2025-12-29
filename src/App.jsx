@@ -24,7 +24,7 @@ const App = () => {
       <Header />
       <Routes>
         {routes.map((el) => (
-          <Route path={el.link} element={el.element} />
+          <Route key={el.id} path={el.link} element={el.element} />
         ))}
       </Routes>
       <Footer />
