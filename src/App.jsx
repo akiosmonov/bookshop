@@ -5,6 +5,7 @@ import Admin from "./Companents/Admin";
 import { Route, Routes } from "react-router-dom";
 import Home from "./Companents/Home";
 import Footer from "./Companents/Footer";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const App = () => {
   let routes = [
@@ -28,6 +29,7 @@ const App = () => {
         ))}
       </Routes>
       <Footer />
+      <SpeedInsights />
     </div>
   );
 };
