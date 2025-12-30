@@ -5,7 +5,6 @@ import Admin from "./Companents/Admin";
 import { Route, Routes } from "react-router-dom";
 import Home from "./Companents/Home";
 import Footer from "./Companents/Footer";
-import { injectSpeedInsights } from "@vercel/speed-insights";
 const App = () => {
   let routes = [
     {

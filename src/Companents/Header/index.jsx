@@ -3,9 +3,23 @@ import logo from "../../assets/images/BOOKShop.svg";
 import { IoIosSearch } from "react-icons/io";
 import { FaCartShopping } from "react-icons/fa6";
 import { LuCircleUser } from "react-icons/lu";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const Header = () => {
+  const negative = useNavigate();
+
+  const AdminPassword = (e) => {
+    e.preventDefault();
+    const password = prompt("Введите пароль для доступа к админке: ");
+
+    if (password === "12345") {
+      negative("/admin");
+    } else {
+      alert("Неверный пароль!");
+    }
+  };
+
   return (
     <div className=" bg-[#010049] p-5">
       <div className="container">
@@ -19,10 +33,7 @@ const Header = () => {
               placeholder="Search here"
               className="text-black text-xl p-2 bg-[#ececec] rounded-[5px] w-70   "
             />
-            <a
-              href=""
-              className=" text-[#A4A4A4] text-2xl relative right-20  "
-            >
+            <a href="" className=" text-[#A4A4A4] text-2xl relative right-20  ">
               <IoIosSearch />
             </a>
             <Link to={"/"}>
@@ -34,14 +45,17 @@ const Header = () => {
               </div>
             </Link>
 
-            <Link to={"/admin"}>
+            <div
+              onClick={AdminPassword}
+              className="flex flex-col items-center cursor-pointer"
+            >
               <div className=" flex flex-col ">
                 <span className="text-white  text-2xl relative left-3">
                   <LuCircleUser />
                 </span>
                 <h1 className="text-white ">Админ</h1>
               </div>
-            </Link>
+            </div>
           </div>
         </div>
       </div>

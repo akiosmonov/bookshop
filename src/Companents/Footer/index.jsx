@@ -10,21 +10,21 @@ const Footer = () => {
   return (
     <div className="bg-[#010049] p-10">
       <div className="container">
-        <div className=" flex justify-around  items-center ">
+        <div className=" flex justify-around  items-center  ">
           <Link to={"/"}>
             <img src={logo} alt=""  className=""/>
           </Link>
-          <div className="">
+          <div className=" flex flex-col gap-5">
             <h1 className=" text-white">Способ оплаты</h1>
             <h1 className=" text-white">Условия доставки</h1>
             <h1 className=" text-white">Правила покупки</h1>
           </div>
-          <div className="">
+          <div className=" flex flex-col gap-5">
             <h1 className="text-white">FAQ</h1>
             <h1 className="text-white">О нас</h1>
           </div>
           <div className=" flex flex-col gap-3">
-            <h1 className=" text-white">Связаться с нами:</h1>
+            <h1 className=" text-white font-medium">Связаться с нами:</h1>
             <a href="#" className=" text-white">
               +996 222 533 735
             </a>
@@ -41,9 +41,9 @@ const Footer = () => {
               <img src={facebook} alt="" />
             </div>
           </div>
-          <div className=" flex flex-col items-center text-center">
-            <h1 className="text-white">Адрес</h1>
-            <p className="text-white">
+          <div className=" flex flex-col items-center gap-5">
+            <h1 className="text-white font-medium">Адрес</h1>
+            <p className="text-white ">
               Lorem ipsum dolor sit amet, consectetur <br /> adipiscing elit. Varius in
               dolor viverra feugiat <br /> neque, sed in. Mattis volutpat malesuada <br />
               velit parturient aliquam, est. <br /> Mauris vitae velit laoreet faucibus
