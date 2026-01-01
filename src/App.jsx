@@ -17,6 +17,10 @@ const App = () => {
       link: "/admin",
       element: <Admin />,
     },
+    // {
+    //   id: 3,
+    //   link: '/BooksDetails'
+    // }
   ];
   return (
     <div className="app">
