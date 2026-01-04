@@ -5,22 +5,16 @@ import Admin from "./Companents/Admin";
 import { Route, Routes } from "react-router-dom";
 import Home from "./Companents/Home";
 import Footer from "./Companents/Footer";
+import Basket from "./Companents/Basket";
+import BooksDetails from "./Companents/BooksDetails";
+import Order from "./Companents/Order";
 const App = () => {
   let routes = [
-    {
-      id: 1,
-      link: "/",
-      element: <Home />,
-    },
-    {
-      id: 2,
-      link: "/admin",
-      element: <Admin />,
-    },
-    // {
-    //   id: 3,
-    //   link: '/BooksDetails'
-    // }
+    { id: 1, link: "/", element: <Home /> },
+    { id: 2, link: "/admin", element: <Admin /> },
+    { id: 3, link: "/BooksDetails/:id", element: <BooksDetails /> },
+    { id: 4, link: "/Basket", element: <Basket /> },
+    { id: 5, link: "/order", element: <Order /> },
   ];
   return (
     <div className="app">

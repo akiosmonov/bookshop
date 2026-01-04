@@ -36,7 +36,7 @@ const Header = () => {
             <a href="" className=" text-[#A4A4A4] text-2xl relative right-20  ">
               <IoIosSearch />
             </a>
-            <Link to={"/"}>
+            <Link to={"/Basket"}>
               <div className=" flex flex-col items-center ">
                 <span className="text-white text-2xl">
                   <FaCartShopping />
