@@ -1,11 +1,13 @@
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
+import { number } from "framer-motion";
 
 export const RootContext = createContext();
 
 const RootContextProvider = ({ children }) => {
   const [books, setBooks] = useState([]);
   const [isloading, setIsloading] = useState(true);
+  const [filteredBooks, setFilteredBooks] = useState([]);
 
   const url = `https://api-crud.elcho.dev/api/v1/41339-d8eb5-75fc7/bookshop`;
 
@@ -28,8 +30,12 @@ const RootContextProvider = ({ children }) => {
   async function getBooks() {
     try {
       setIsloading(true);
-      const response = await axios.get(url);
-      setBooks(response.data.data);
+      const response = await axios.get(`${url}?limit=100`);
+
+      const allData = response.data.data;
+
+      setBooks(allData);
+      setFilteredBooks(allData);
     } catch (error) {
       console.error("Ошибка при получении книг:", error);
     } finally {
@@ -37,9 +43,40 @@ const RootContextProvider = ({ children }) => {
     }
   }
 
+  const searchBooks = (title) => {
+    if (!title || !title.trim()) {
+      setFilteredBooks(books);
+    } else {
+      const searchLow = title.toLowerCase();
+      const result = books.filter(
+        (item) =>
+          item.name.toLowerCase().includes(searchLow) ||
+          (item.cotegory && item.cotegory.toLowerCase().includes(searchLow))
+      );
+      setFilteredBooks(result);
+    }
+  };
+
+  const sortBooks = (e) => {
+    let sorted = [...filteredBooks];
+
+    if (e === "price-asc") {
+      sorted.sort((a, b) => Number(a.price) - Number(b.price));
+    } else if (e === "price-desc") {
+      sorted.sort((a, b) => Number(b.price) - Number(a.price));
+    } else if (e === "name") {
+      sorted.sort((a, b) => a.name.localeCompare(b.name));
+    }
+
+    setFilteredBooks(sorted);
+  };
+
   useEffect(() => {
     getBooks();
   }, []);
+  useEffect(() => {
+  setFilteredBooks(books);
+}, [books]);
 
   useEffect(() => {
     localStorage.setItem("card", JSON.stringify(cardBooks));
@@ -54,6 +91,9 @@ const RootContextProvider = ({ children }) => {
         setIsloading,
         cardBooks,
         setCardBooks,
+        searchBooks,
+        filteredBooks,
+        sortBooks
       }}
     >
       {children}

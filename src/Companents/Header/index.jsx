@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useEffectEvent, useState } from "react";
 import logo from "../../assets/images/BOOKShop.svg";
 import { IoIosSearch } from "react-icons/io";
 import { FaCartShopping } from "react-icons/fa6";
@@ -7,16 +7,33 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const Header = () => {
-  const negative = useNavigate();
+  const navigate = useNavigate();
+  const [bookName, setBookName] = useState("");
 
   const AdminPassword = (e) => {
     e.preventDefault();
     const password = prompt("Введите пароль для доступа к админке: ");
 
     if (password === "12345") {
-      negative("/admin");
+      navigate("/admin");
     } else {
       alert("Неверный пароль!");
+    }
+  };
+
+  const SearchBooks = () => {
+    const trimmedName = bookName.trim();
+
+    if (trimmedName === "") {
+      alert("Введите название книги");
+    } else {
+      navigate(`/search/${trimmedName}`); 
+      setBookName(""); 
+    }
+  };
+  const handleKey = (e) => {
+    if (e.key === "Enter") {
+      SearchBooks();
     }
   };
 
@@ -29,11 +46,17 @@ const Header = () => {
           </Link>
           <div className=" flex gap-10 items-center justify-center">
             <input
+              onChange={(e) => setBookName(e.target.value)}
+              value={bookName}
               type="text"
               placeholder="Search here"
               className="text-black text-xl p-2 bg-[#ececec] rounded-[5px] w-70   "
+              onKeyDown={handleKey}
             />
-            <a href="" className=" text-[#A4A4A4] text-2xl relative right-20  ">
+            <a
+              onClick={() => SearchBooks()}
+              className="text-[#ffffff] text-3xl relative right-5  cursor-pointer "
+            >
               <IoIosSearch />
             </a>
             <Link to={"/Basket"}>

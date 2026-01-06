@@ -8,6 +8,7 @@ import Footer from "./Companents/Footer";
 import Basket from "./Companents/Basket";
 import BooksDetails from "./Companents/BooksDetails";
 import Order from "./Companents/Order";
+import Search from "./Companents/Search";
 const App = () => {
   let routes = [
     { id: 1, link: "/", element: <Home /> },
@@ -15,6 +16,7 @@ const App = () => {
     { id: 3, link: "/BooksDetails/:id", element: <BooksDetails /> },
     { id: 4, link: "/Basket", element: <Basket /> },
     { id: 5, link: "/order", element: <Order /> },
+    { id: 6, link: "/search/:bookTitle", element: <Search /> },
   ];
   return (
     <div className="app">

@@ -108,7 +108,7 @@ const Admin = () => {
               <input
                 onKeyDown={handleSubmit}
                 value={productPrice}
-                onChange={(e) => setProductPrice(e.target.value)}
+                onChange={(e) => setProductPrice(e.target.value < 0 ? 0 : e.target.value)}
                 type="number"
                 placeholder=" Price"
                 className=" border-2 text-[13px] p-5 border-[#010049]"
