@@ -11,6 +11,30 @@ const Admin = () => {
   const [productPrice, setProductPrice] = useState("");
   const [productCotegory, setProductCotegory] = useState("");
 
+  const apiEndpoints = [
+    "https://api-crud.elcho.dev/api/v1/1d346-5500f-354c2/booksshop",
+    "https://api-crud.elcho.dev/api/v1/df970-13743-db46c/project1",
+    "https://api-crud.elcho.dev/api/v1/63f69-cf1f7-d90b8/project2",
+    "https://api-crud.elcho.dev/api/v1/a274e-cee89-73e88/project3",
+  ];
+
+  async function smartPushBooks(newBook) {
+    for (let url of apiEndpoints) {
+      try {
+        const response = await axios.get(url);
+        if (response.data.data.length < 10) {
+          await axios.post(url, newBook);
+          console.log(`Успешно добавлено в: ${url}`);
+          return true; 
+        }
+      } catch (err) {
+        console.error(`Ошибка при проверке эндпоинта ${url}:`, err);
+      }
+    }
+    alert("Все хранилища заполнены (максимум 40 книг)!");
+    return false;
+  }
+
   async function postProduct(e) {
     if (e) e.preventDefault();
 
@@ -30,20 +54,19 @@ const Admin = () => {
       description: productDescription,
       price: productPrice,
       img: productUrl,
-      cotegory: productCotegory,
+      cotegory: productCotegory, 
     };
 
     try {
-      await axios.post(
-        `https://api-crud.elcho.dev/api/v1/41339-d8eb5-75fc7/bookshop`,
-        newProduct
-      );
+      const success = await smartPushBooks(newProduct);
 
-      setProductDescription("");
-      setProductName("");
-      setProductUrl("");
-      setProductPrice("");
-      setProductCotegory("");
+      if (success) {
+        setProductDescription("");
+        setProductName("");
+        setProductUrl("");
+        setProductPrice("");
+        setProductCotegory("");
+      }
     } catch (error) {
       console.error("Error posting product: ", error);
       alert("Failed to add product");
@@ -55,7 +78,6 @@ const Admin = () => {
       postProduct();
     }
   };
-
 
   return (
     <div className=" p-10">
@@ -108,7 +130,9 @@ const Admin = () => {
               <input
                 onKeyDown={handleSubmit}
                 value={productPrice}
-                onChange={(e) => setProductPrice(e.target.value < 0 ? 0 : e.target.value)}
+                onChange={(e) =>
+                  setProductPrice(e.target.value < 0 ? 0 : e.target.value)
+                }
                 type="number"
                 placeholder=" Price"
                 className=" border-2 text-[13px] p-5 border-[#010049]"

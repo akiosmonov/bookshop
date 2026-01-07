@@ -7,9 +7,13 @@ import polygon from "../../assets/images/Polygon 1.svg";
 import { RootContext, RootContextProvider } from "../../Context";
 
 const Hero = () => {
-  const { isloading, books, sortBooks, filteredBooks } =
+  const { isloading, setLoading, books, sortBooks, filteredBooks } =
     useContext(RootContext);
   const [sort, setSort] = useState("Сортировка");
+
+ 
+
+  
 
   useEffect(() => {}, [sortBooks]);
 
@@ -62,7 +66,7 @@ const Hero = () => {
           <div className="flex flex-wrap gap-4">
             {isloading ? (
               <p>Загрузка...</p>
-            ) : filteredBooks.length > 0 ? ( // Используем filteredBooks здесь!
+            ) : filteredBooks.length > 0 ? ( 
               filteredBooks.map((el) => (
                 <div
                   key={el._id}
@@ -76,7 +80,7 @@ const Hero = () => {
                     />
                   </Link>
                   <h2 className="font-bold h-13 overflow-hidden">{el.name}</h2>
-                  <p className="text-gray-600">{el.price} $</p>
+                  <p className="text-gray-600">{el.price} сом</p>
                 </div>
               ))
             ) : (

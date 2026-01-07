@@ -55,7 +55,7 @@ const BooksDetails = () => {
                 {" "}
                 <h1 className=" font-bold text-2xl text-[#010049]">{name}</h1>
                 <h2 className=" font-bold text-2xl text-[#010049] ">
-                  {price} $
+                  {price} сом
                 </h2>
               </div>
               <h3 className="font-bold text-[#595959] text-xl">
