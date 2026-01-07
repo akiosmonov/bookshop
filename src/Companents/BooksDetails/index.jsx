@@ -49,7 +49,7 @@ const BooksDetails = () => {
       <div className="p-20">
         <div className="container">
           <div className=" flex gap-20">
-            <img src={img} alt="" className="w-140" />
+            <img src={img} alt="" className="w-140 rounded border" />
             <div className=" flex flex-col gap-10">
               <div className=" flex flex-col gap-5">
                 {" "}

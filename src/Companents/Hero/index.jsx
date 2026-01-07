@@ -4,22 +4,16 @@ import axios from "axios";
 // ASSETS
 
 import polygon from "../../assets/images/Polygon 1.svg";
-import { RootContext, RootContextProvider } from "../../Context";
+import { RootContext } from "../../Context";
 
 const Hero = () => {
-  const { isloading, setLoading, books, sortBooks, filteredBooks } =
-    useContext(RootContext);
+  const { isloading, filteredBooks, setSortType } = useContext(RootContext);
   const [sort, setSort] = useState("Сортировка");
 
- 
-
-  
-
-  useEffect(() => {}, [sortBooks]);
 
   const handleSortChange = (e) => {
     const value = e.target.value;
-    sortBooks(value);
+    setSortType(value);
 
     if (value === "price-asc") setSort("Сначала дешевые");
     else if (value === "price-desc") setSort("Сначала дорогие");
@@ -46,7 +40,7 @@ const Hero = () => {
                   className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                   onChange={handleSortChange}
                 >
-                  <option value="" disabled selected>
+                  <option value="" disabled>
                     Сортировка
                   </option>
                   <option className="text-black" value="price-asc">
@@ -66,18 +60,20 @@ const Hero = () => {
           <div className="flex flex-wrap gap-4">
             {isloading ? (
               <p>Загрузка...</p>
-            ) : filteredBooks.length > 0 ? ( 
+            ) : filteredBooks.length > 0 ? (
               filteredBooks.map((el) => (
                 <div
-                  key={el._id}
-                  className="p-4 gap-2 w-60 flex flex-col shadow-sm hover:shadow-md transition-all"
+                  key={el.uniqueId}
+                  className="p-4 gap-2 w-60 flex flex-col shadow-sm hover:shadow-xl transition-all duration-300 rounded-xl bg-white group:"
                 >
                   <Link to={`/BooksDetails/${el._id}`}>
-                    <img
-                      src={el.img}
-                      className="rounded-xl w-50 h-70 object-cover"
-                      alt={el.name}
-                    />
+                    <div className=" relative w-full h-70 overflow-hidden">
+                      <img
+                        src={el.img}
+                        className="w-full h-full rounded object-cover transition-transform duration-500 group-hover:scale-110 group-hover:brightness-75 "
+                        alt={el.name}
+                      />
+                    </div>
                   </Link>
                   <h2 className="font-bold h-13 overflow-hidden">{el.name}</h2>
                   <p className="text-gray-600">{el.price} сом</p>

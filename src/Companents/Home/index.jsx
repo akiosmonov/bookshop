@@ -1,39 +1,61 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import backgroundImage from "../../assets/images/backgound.jpg";
 import Hero from "../Hero";
 import { motion } from "framer-motion";
 
-import detective from "../../assets/images/Rectangle 2260.svg";
+import detective from "../../assets/images/sherlock.jpg";
 import detectiveBG from "../../assets/images/Rectangle 2264.svg";
 import Arrow from "../../assets/images/Arrow 1.svg";
 import fantasy from "../../assets/images/Rectangle 2261.svg";
 import fantasyBG from "../../assets/images/Rectangle 2265.svg";
-import travel from "../../assets/images/Rectangle 2262.svg";
-import sciens from "../../assets/images/Rectangle 2263.svg";
-import story from "../../assets/images/Bykov_Folklore.jpeg";
+import Psychology from "../../assets/images/scale_1200.jpg";
+import business from "../../assets/images/luchshie-knigi-pro-biznesmenov.jpg";
 import { Link } from "react-router-dom";
+import { RootContext } from "../../Context";
+import romance from '../../assets/images/princess-and-her-knight-v0-bgrakhnits6f1.webp'
 const CATEGORIES = [
   {
     id: 1,
     name: "Детектив",
+    value: "Detective", 
     img: detective,
     bg: detectiveBG,
     path: "/detective",
   },
-  { id: 2, name: "Фантастика", img: fantasy, bg: fantasyBG, path: "/fantasy" },
+  {
+    id: 2,
+    name: "Фантастика",
+    value: "Sci-Fi",
+    img: fantasy,
+    bg: fantasyBG,
+    path: "/fantasy",
+  },
   {
     id: 3,
-    name: "Приключения",
-    img: travel,
-    bg: detectiveBG,
-    path: "/adventure",
+    name: "Романы", 
+    value: "Romance",
+    img: romance, 
+    bg: fantasyBG, 
   },
-  { id: 4, name: "Научная", img: sciens, bg: detectiveBG, path: "/science" },
-  { id: 5, name: "Фольклор", img: story, bg: detectiveBG, path: "/folklore" },
+  {
+    id: 4,
+    name: "Психология", 
+    value: "Psychology",
+    img: Psychology,
+    bg: detectiveBG,
+  },
+  {
+    id: 5,
+    name: "Бизнес", 
+    value: "Business",
+    img: business,
+    bg: fantasyBG,
+  },
 ];
 
 const Home = () => {
   const booksSectionRef = useRef(null);
+  const { setSearchValue } = useContext(RootContext);
 
   const scrollToBooks = (e) => {
     e.preventDefault();
@@ -56,13 +78,11 @@ const Home = () => {
         <div className="container">
           <div className=" flex justify-center ">
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }} // Начало: прозрачный и чуть ниже
-              animate={{ opacity: 1, scale: 1, y: 0 }} // Финал: четкий и на месте
+              initial={{ opacity: 0, scale: 0.9, y: 20 }} 
+              animate={{ opacity: 1, scale: 1, y: 0 }} 
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="relative z-10 w-full max-w-2xl text-center p-12 rounded-[30px] border border-white/30 bg-white/10 backdrop-blur-md shadow-2xl"
             >
-              {/* backdrop-blur-md — это и есть эффект размытия стекла */}
-
               <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg">
                 Discover Your Next <br /> Great Read
               </h1>
@@ -93,10 +113,10 @@ const Home = () => {
           </h1>
 
           <div className="flex gap-8  ">
-
             <div className="flex gap-8 overflow-x-auto pb-4 scrollbar-hide">
               {CATEGORIES.map((el) => (
-                <div
+                <Link
+                  to={`/search/${el.value}`}
                   key={el.id}
                   className="flex items-center relative shrink-0 snap-center "
                 >
@@ -106,13 +126,13 @@ const Home = () => {
                     className="w-75 h-55 rounded-2xl absolute left-0"
                   />
                   <div className="absolute inset-0 bg-[#01004980]/80 rounded-2xl"></div>
-                  <Link to={el.path} className=" flex absolute right-20 top-45">
+                  <div className=" flex absolute right-20 top-45">
                     <h1 className="text-white   text-2xl font-semibold">
                       {el.name}
                     </h1>
                     <img src={Arrow} className="w-7 relative top-1 left-10" />
-                  </Link>
-                </div>
+                  </div>
+                </Link>
               ))}
             </div>
           </div>

@@ -8,6 +8,8 @@ const RootContextProvider = ({ children }) => {
   const [books, setBooks] = useState([]);
   const [isloading, setIsloading] = useState(true);
   const [filteredBooks, setFilteredBooks] = useState([]);
+  const [sortType, setSortType] = useState("");
+  const [searchValue, setSearchValue] = useState("");
 
   // const url = `https://api-crud.elcho.dev/api/v1/1d346-5500f-354c2/booksshop`;
   const apiEndpoints = [
@@ -33,49 +35,33 @@ const RootContextProvider = ({ children }) => {
     getSafeLocalStorage("card", [])
   );
 
-  // async function getBooks() {
-  //   try {
-  //     setIsloading(true);
-  //     const response = await axios.get(`${url}?limit=100`);
-
-  //     const allData = response.data.data;
-
-  //     setBooks(allData);
-  //     setFilteredBooks(allData);
-  //   } catch (error) {
-  //     console.error("Ошибка при получении книг:", error);
-  //   } finally {
-  //     setIsloading(false);
+  // const searchBooks = (title) => {
+  //   if (!title || !title.trim()) {
+  //     setFilteredBooks(books);
+  //   } else {
+  //     const searchLow = title.toLowerCase();
+  //     const result = books.filter(
+  //       (item) =>
+  //         item.name.toLowerCase().includes(searchLow) ||
+  //         (item.cotegory && item.cotegory.toLowerCase().includes(searchLow))
+  //     );
+  //     setFilteredBooks(result);
   //   }
-  // }
+  // };
 
-  const searchBooks = (title) => {
-    if (!title || !title.trim()) {
-      setFilteredBooks(books);
-    } else {
-      const searchLow = title.toLowerCase();
-      const result = books.filter(
-        (item) =>
-          item.name.toLowerCase().includes(searchLow) ||
-          (item.cotegory && item.cotegory.toLowerCase().includes(searchLow))
-      );
-      setFilteredBooks(result);
-    }
-  };
+  // const sortBooks = (e) => {
+  //   let sorted = [...filteredBooks];
 
-  const sortBooks = (e) => {
-    let sorted = [...filteredBooks];
+  //   if (e === "price-asc") {
+  //     sorted.sort((a, b) => Number(a.price) - Number(b.price));
+  //   } else if (e === "price-desc") {
+  //     sorted.sort((a, b) => Number(b.price) - Number(a.price));
+  //   } else if (e === "name") {
+  //     sorted.sort((a, b) => a.name.localeCompare(b.name));
+  //   }
 
-    if (e === "price-asc") {
-      sorted.sort((a, b) => Number(a.price) - Number(b.price));
-    } else if (e === "price-desc") {
-      sorted.sort((a, b) => Number(b.price) - Number(a.price));
-    } else if (e === "name") {
-      sorted.sort((a, b) => a.name.localeCompare(b.name));
-    }
-
-    setFilteredBooks(sorted);
-  };
+  //   setFilteredBooks(sorted);
+  // };
 
   const getALlBooks = async () => {
     try {
@@ -84,7 +70,14 @@ const RootContextProvider = ({ children }) => {
       const requests = apiEndpoints.map((url) => axios.get(url));
       const responses = await Promise.all(requests);
 
-      const allBooks = responses.flatMap((res) => res.data.data || res.data);
+      const allBooks = responses.flatMap((res, index) => {
+        const data = res.data.data || res.data;
+
+        return data.map((book) => ({
+          ...book,
+          uniqueId: `api${index}-${book._id}`,
+        }));
+      });
 
       setBooks(allBooks);
       setFilteredBooks(allBooks);
@@ -98,9 +91,29 @@ const RootContextProvider = ({ children }) => {
   useEffect(() => {
     getALlBooks();
   }, []);
+
   useEffect(() => {
-    setFilteredBooks(books);
-  }, [books]);
+    let result = [...books];
+    if (searchValue.trim()) {
+      const searchLow = searchValue.toLowerCase();
+      result = result.filter((e) => {
+        const nameMatch = e.name.toLowerCase().includes(searchLow);
+        const cotegoryMatch = e.cotegory?.toLowerCase() === searchLow;
+        const cotegoryInclude = e.cotegory?.toLowerCase().includes(searchLow);
+        return nameMatch || cotegoryInclude || cotegoryMatch;
+      });
+    }
+
+    if (sortType === "price-asc") {
+      result.sort((a, b) => Number(a.price) - Number(b.price));
+    } else if (sortType === "price-desc") {
+      result.sort((a, b) => Number(b.price) - Number(a.price));
+    } else if (sortType === "name") {
+      result.sort((a, b) => a.name.localeCompare(b.name));
+    }
+
+    setFilteredBooks(result);
+  }, [searchValue, books, sortType]);
 
   useEffect(() => {
     localStorage.setItem("card", JSON.stringify(cardBooks));
@@ -115,9 +128,11 @@ const RootContextProvider = ({ children }) => {
         setIsloading,
         cardBooks,
         setCardBooks,
-        searchBooks,
         filteredBooks,
-        sortBooks,
+        sortType,
+        setSortType,
+        searchValue,
+        setSearchValue,
       }}
     >
       {children}
