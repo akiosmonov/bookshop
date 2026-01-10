@@ -13,11 +13,9 @@ const RootContextProvider = ({ children }) => {
 
   // const url = ;
   const apiEndpoints = [
-
     `https://695fc4447f037703a814c2fe.mockapi.io/677f98590476123f76a76985/newProduct`,
     `https://695fc4447f037703a814c2fe.mockapi.io/677f98590476123f76a76985/newProduct2`,
 
-    
     // "https://695fc4447f037703a814c2fe.mockapi.io/api/v1/:endpoint",
 
     // "https://api-crud.elcho.dev/api/v1/1d346-5500f-354c2/booksshop",
@@ -79,6 +77,7 @@ const RootContextProvider = ({ children }) => {
       const responses = await Promise.all(requests);
 
       const allBooks = responses.flatMap((res, index) => {
+        if(res.status !== 200) return []
         const data = res.data.data || res.data;
 
         return data.map((book) => ({
@@ -124,7 +123,6 @@ const RootContextProvider = ({ children }) => {
   }, [searchValue, books, sortType]);
 
   console.log(books);
-  
 
   useEffect(() => {
     localStorage.setItem("card", JSON.stringify(cardBooks));

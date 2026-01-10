@@ -58,26 +58,26 @@ const Hero = () => {
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-1">
             {isloading ? (
               <p>Загрузка...</p>
             ) : filteredBooks.length > 0 ? (
               filteredBooks.map((el) => (
                 <div
                   key={el.uniqueId}
-                  className="p-4 gap-2 w-60 flex flex-col shadow-sm hover:shadow-xl transition-all duration-300 rounded-xl bg-white group:"
+                  className="p-4 w-full sm:w-60 flex flex-col shadow-sm hover:shadow-xl transition-all duration-300 rounded-xl bg-white group:"
                 >
-                  <Link to={`/BooksDetails/${el._id}`}>
-                    <div className=" relative w-full h-70 overflow-hidden">
+                  <Link to={`/BooksDetails/${el.uniqueId}`}>
+                    <div className=" relative w-full aspect-3/4 rounded bg-gray-100 overflow-hidden">
                       <img
                         src={el.img}
-                        className="w-full h-full rounded object-cover transition-transform duration-500 group-hover:scale-110 group-hover:brightness-75 "
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 group-hover:brightness-75 "
                         alt={el.name}
                       />
                     </div>
                   </Link>
-                  <h2 className="font-bold h-13 overflow-hidden">{el.name}</h2>
-                  <p className="text-gray-600">{el.price} сом</p>
+                  <h2 className="font-bold text-sm md:text-base h-12 line-clamp-2 overflow-hidden text-[#010049] ">{el.name}</h2>
+                  <p className="text-gray-500 font-semibold mt-1">{el.price} сом</p>
                 </div>
               ))
             ) : (

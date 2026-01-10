@@ -24,7 +24,7 @@ const Search = () => {
         <div className="grid grid-cols-4 gap-4 ">
           {filteredBooks.length > 0 ? (
             filteredBooks.map((el) => (
-              <div key={el.uniqueId} className="border p-4 rounded shadow">
+              <div key={el.id} className="border p-4 rounded shadow">
                 <img
                   src={el.img}
                   alt={el.name}

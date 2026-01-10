@@ -15,10 +15,10 @@ const Basket = () => {
         <div className=" flex flex-wrap gap-10">
           {cardBooks.map((el) => (
             <div
-              key={el._id}
+              key={el.uniqueId}
               className="p-4 w-70 h-110 flex flex-col justify-center shadow-sm hover:shadow-md transition-shadow"
             >
-              <Link to={`/BooksDetails/${el._id}`}>
+              <Link to={`/BooksDetails/${el.uniqueId}`}>
               <div className=" transition-0.5">
                 <img src={el.img} className=" hover:scale-101  w-60 h-80" />
               </div>
