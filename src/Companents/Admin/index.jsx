@@ -11,27 +11,36 @@ const Admin = () => {
   const [productPrice, setProductPrice] = useState("");
   const [productCotegory, setProductCotegory] = useState("");
 
+  // const apiEndpoints = [
+  //   `https://695fc4447f037703a814c2fe.mockapi.io/677f98590476123f76a76985/:MyBooks`,
+  //   // "https://695fc4447f037703a814c2fe.mockapi.io/api/v1/:endpoint",
+  //   // "https://api-crud.elcho.dev/api/v1/1d346-5500f-354c2/booksshop",
+  //   // "https://api-crud.elcho.dev/api/v1/df970-13743-db46c/project1",
+  //   // "https://api-crud.elcho.dev/api/v1/63f69-cf1f7-d90b8/project2",
+  //   // "https://api-crud.elcho.dev/api/v1/a274e-cee89-73e88/project3",
+  // ];
   const apiEndpoints = [
-    "https://api-crud.elcho.dev/api/v1/1d346-5500f-354c2/booksshop",
-    "https://api-crud.elcho.dev/api/v1/df970-13743-db46c/project1",
-    "https://api-crud.elcho.dev/api/v1/63f69-cf1f7-d90b8/project2",
-    "https://api-crud.elcho.dev/api/v1/a274e-cee89-73e88/project3",
+    `https://695fc4447f037703a814c2fe.mockapi.io/677f98590476123f76a76985/newProduct`,
+    `https://695fc4447f037703a814c2fe.mockapi.io/677f98590476123f76a76985/newProduct2`,
   ];
 
   async function smartPushBooks(newBook) {
     for (let url of apiEndpoints) {
       try {
         const response = await axios.get(url);
-        if (response.data.data.length < 10) {
+
+        const books = response.data;
+
+        if (books.length < 100) {
           await axios.post(url, newBook);
           console.log(`Успешно добавлено в: ${url}`);
-          return true; 
+          return true;
         }
       } catch (err) {
-        console.error(`Ошибка при проверке эндпоинта ${url}:`, err);
+        console.error(`Ошибка эндпоинта ${url}:`, err);
       }
     }
-    alert("Все хранилища заполнены (максимум 40 книг)!");
+    alert("Ошибка или лимит хранилища достигнут!");
     return false;
   }
 
@@ -54,7 +63,7 @@ const Admin = () => {
       description: productDescription,
       price: productPrice,
       img: productUrl,
-      cotegory: productCotegory, 
+      cotegory: productCotegory,
     };
 
     try {

@@ -12,12 +12,12 @@ import Psychology from "../../assets/images/scale_1200.jpg";
 import business from "../../assets/images/luchshie-knigi-pro-biznesmenov.jpg";
 import { Link } from "react-router-dom";
 import { RootContext } from "../../Context";
-import romance from '../../assets/images/princess-and-her-knight-v0-bgrakhnits6f1.webp'
+import romance from "../../assets/images/princess-and-her-knight-v0-bgrakhnits6f1.webp";
 const CATEGORIES = [
   {
     id: 1,
     name: "Детектив",
-    value: "Detective", 
+    value: "Detective",
     img: detective,
     bg: detectiveBG,
     path: "/detective",
@@ -32,21 +32,21 @@ const CATEGORIES = [
   },
   {
     id: 3,
-    name: "Романы", 
+    name: "Романы",
     value: "Romance",
-    img: romance, 
-    bg: fantasyBG, 
+    img: romance,
+    bg: fantasyBG,
   },
   {
     id: 4,
-    name: "Психология", 
+    name: "Психология",
     value: "Psychology",
     img: Psychology,
     bg: detectiveBG,
   },
   {
     id: 5,
-    name: "Бизнес", 
+    name: "Бизнес",
     value: "Business",
     img: business,
     bg: fantasyBG,
@@ -55,7 +55,6 @@ const CATEGORIES = [
 
 const Home = () => {
   const booksSectionRef = useRef(null);
-  const { setSearchValue } = useContext(RootContext);
 
   const scrollToBooks = (e) => {
     e.preventDefault();
@@ -72,32 +71,33 @@ const Home = () => {
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "center",
-          padding: "200px",
         }}
       >
-        <div className="container">
-          <div className=" flex justify-center ">
+        <div className="container px-4">
+          <div className=" flex justify-center items-center min-h-200 ">
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }} 
-              animate={{ opacity: 1, scale: 1, y: 0 }} 
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="relative z-10 w-full max-w-2xl text-center p-12 rounded-[30px] border border-white/30 bg-white/10 backdrop-blur-md shadow-2xl"
+              className="relative z-10 w-full max-w-2xl text-center p-6 md:p-12 md:rounded-30 rounded-[30px] border border-white/30 bg-white/10 backdrop-blur-md shadow-2xl"
             >
-              <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg">
+              <h1 className="text-3xl md:text-6xl font-bold text-white/90 mb-6 md:mb-6 drop-shadow-lg leading-tight">
                 Discover Your Next <br /> Great Read
               </h1>
 
-              <p className="text-lg text-white/90 mb-10 max-w-lg mx-auto leading-relaxed">
+              <p className="text-base md:text-lg  text-white/90 mb-6 max-w-md mx-auto leading-relaxed">
                 Explore a curated collection of fiction, non-fiction, and rare
                 books. Find adventure, knowledge, and inspiration.
               </p>
 
               <button
                 onClick={scrollToBooks}
-                className="bg-[#010049] relative left-36 top-5  hover:bg-[#020066] text-white px-10 py-4 rounded-xl flex items-center gap-3 mx-auto transition-all active:scale-95 shadow-lg"
+                className="bg-[#010049] mt-5 md:relative top-5  md:px-10 hover:bg-[#020066]
+                 text-white px-6 md:py-4
+                 rounded gap-3 mx-auto transition-all active:scale-95 shadow-lg"
               >
-                <span className="text-xl">📖</span>
-                <span className="font-semibold text-lg">Browse Books</span>
+                <span className="text-lg md:text-xl">📖</span>
+                <span className="font-semibold text-base md:text-lg whitespace-nowrap">Browse Books</span>
               </button>
             </motion.div>
           </div>
@@ -113,12 +113,12 @@ const Home = () => {
           </h1>
 
           <div className="flex gap-8  ">
-            <div className="flex gap-8 overflow-x-auto pb-4 scrollbar-hide">
+            <div className="flex gap-4 md:gap-8 overflow-x-auto px-2 pb-4 scrollbar-hide">
               {CATEGORIES.map((el) => (
                 <Link
                   to={`/search/${el.value}`}
                   key={el.id}
-                  className="flex items-center relative shrink-0 snap-center "
+                  className="flex items-center relative shrink-0 snap-center group transition-transform hover:scale-[1.02] "
                 >
                   <img src={el.bg} alt="" className="w-75   " />
                   <img

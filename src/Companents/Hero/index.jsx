@@ -10,7 +10,6 @@ const Hero = () => {
   const { isloading, filteredBooks, setSortType } = useContext(RootContext);
   const [sort, setSort] = useState("Сортировка");
 
-
   const handleSortChange = (e) => {
     const value = e.target.value;
     setSortType(value);
@@ -27,12 +26,14 @@ const Hero = () => {
         <div className=" flex flex-col gap-10">
           <div className="">
             <div className=" flex  justify-between">
-              <h1 className="text-3xl text-[#010049] font-bold ">
+              <h1 className="text-xl md:text-3xl text-[#010049] font-bold leading-tight ">
                 Возможно, Вам понравится
               </h1>
-              <div className="relative flex items-center border-2 rounded-xs">
-                <div className="flex items-center gap-9 pl-4 pr-4 py-2 bg-transparent">
-                  <span className="text-black">{sort}</span>
+              <div className="relative flex items-center border-2 border-gray-200 rounded-lg overflow-hidden w-full md:w-auto">
+                <div className="flex items-center justify-between w-full md:w-auto gap-4 md:gap-9 px-4 py-2 bg-white">
+                  <span className="text-black text-sm md:text-base truncate">
+                    {sort}
+                  </span>
                   <img src={polygon} alt="icon" className="w-3" />
                 </div>
 

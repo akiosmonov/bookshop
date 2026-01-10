@@ -11,12 +11,20 @@ const RootContextProvider = ({ children }) => {
   const [sortType, setSortType] = useState("");
   const [searchValue, setSearchValue] = useState("");
 
-  // const url = `https://api-crud.elcho.dev/api/v1/1d346-5500f-354c2/booksshop`;
+  // const url = ;
   const apiEndpoints = [
-    "https://api-crud.elcho.dev/api/v1/1d346-5500f-354c2/booksshop",
-    "https://api-crud.elcho.dev/api/v1/df970-13743-db46c/project1",
-    "https://api-crud.elcho.dev/api/v1/63f69-cf1f7-d90b8/project2",
-    "https://api-crud.elcho.dev/api/v1/a274e-cee89-73e88/project3",
+
+    `https://695fc4447f037703a814c2fe.mockapi.io/677f98590476123f76a76985/newProduct`,
+    `https://695fc4447f037703a814c2fe.mockapi.io/677f98590476123f76a76985/newProduct2`,
+
+    
+    // "https://695fc4447f037703a814c2fe.mockapi.io/api/v1/:endpoint",
+
+    // "https://api-crud.elcho.dev/api/v1/1d346-5500f-354c2/booksshop",
+    // "https://api-crud.elcho.dev/api/v1/df970-13743-db46c/project1",
+    // "https://api-crud.elcho.dev/api/v1/63f69-cf1f7-d90b8/project2",
+    // "https://api-crud.elcho.dev/api/v1/a274e-cee89-73e88/project3",
+    // `https://api-crud.elcho.dev/api/v1/1d346-5500f-354c2/booksshop`
   ];
 
   const getSafeLocalStorage = (key, defaultValue) => {
@@ -75,7 +83,7 @@ const RootContextProvider = ({ children }) => {
 
         return data.map((book) => ({
           ...book,
-          uniqueId: `api${index}-${book._id}`,
+          uniqueId: `api${index}-${book.id}`,
         }));
       });
 
@@ -114,6 +122,9 @@ const RootContextProvider = ({ children }) => {
 
     setFilteredBooks(result);
   }, [searchValue, books, sortType]);
+
+  console.log(books);
+  
 
   useEffect(() => {
     localStorage.setItem("card", JSON.stringify(cardBooks));

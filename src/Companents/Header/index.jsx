@@ -38,7 +38,7 @@ const Header = () => {
   };
 
   return (
-    <div className=" bg-[#010049] p-5">
+    <div className=" bg-[#010049] p-3 ">
       <div className="container">
         <div className="flex justify-between items-center ">
           <Link to={"/"}>
