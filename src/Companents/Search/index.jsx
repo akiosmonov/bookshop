@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { RootContext } from "../../Context/RootContext";
 
 const Search = () => {
@@ -24,12 +24,14 @@ const Search = () => {
         <div className="grid grid-cols-4 gap-4 ">
           {filteredBooks.length > 0 ? (
             filteredBooks.map((el) => (
-              <div key={el.id} className="border p-4 rounded shadow">
-                <img
+              <div key={el.uniqueId} className="border p-4 rounded shadow">
+                <Link to={`/BooksDetails/${el.uniqueId}`}>
+                  <img
                   src={el.img}
                   alt={el.name}
                   className="h-100 w-full object-cover"
                 />
+                </Link>
                 <h3 className="mt-2 font-bold">{el.name}</h3>
                 <p>{el.price} $</p>
               </div>
