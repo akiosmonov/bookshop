@@ -1,16 +1,20 @@
 # React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+📚 BOOKShop — E-commerce SPA (React)
+Проект современного интернет-магазина книг с полноценной клиентской логикой и админ-панелью.
 
-Currently, two official plugins are available:
+🛠 Стек технологий:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Core: React.js, React Router (SPA).
+Styling: Tailwind CSS, Framer Motion (анимации).
+Data: Axios, REST API, LocalStorage.
 
-## React Compiler
+💡 Ключевые особенности:
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+Отказоустойчивость: Реализовал архитектуру получения данных из нескольких независимых API-эндпоинтов, чтобы обойти лимиты бесплатных сервисов и обеспечить стабильность приложения.
 
-## Expanding the ESLint configuration
+Админ-панель: Разработал функционал для управления ассортиментом книг (добавление, редактирование, удаление) через запросы к API.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Управление состоянием: Корзина товаров и настройки пользователя сохраняются в LocalStorage, что предотвращает потерю данных при обновлении страницы.
+
+UI/UX: Использовал библиотеку Framer Motion для создания плавных интерактивных анимаций элементов интерфейса.
